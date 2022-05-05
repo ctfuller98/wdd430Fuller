@@ -1,18 +1,18 @@
 <div class="panel panel-default">
-    <div class="panel-heading d-flex flex-column">
+    <div class="panel-heading">
         <div class="row">
             <div class="col-xs-12">
-                <h3>Contact Name</h3>
+                <h3>{{contact.name}}</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="man with glasses" class="img-responsive" style="width: 100px; visibility: hidden;">
+                <img [src] = "contact.imgUrl" alt="picture of {{contact.name}}" class="img-responsive" style="max-height: 300px;">
             </div>
-            <div class="col-md-3" style="margin-top: 50px;">
+            <div class="col-md-3" style="margin-top: 50px; margin-left:0px;">
                     <button type="button" class="btn btn-primary ">Edit</button>
             </div>
-            <div class="col-md-3" style="margin-top: 50px;">
+            <div class="col-md-3" style="margin-top: 50px; margin-left:0px;">
                 <div class="btn-group">
                     <button type="button" class="btn btn-danger">Delete</button>
                 </div>
@@ -23,12 +23,12 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <p>Email: </p>
+                <p>Email: {{contact.email}} </p>
             </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <p>Phone: </p>
+                <p>Phone: {{contact.phone}}</p>
             </div>
         </div>
     </div>
