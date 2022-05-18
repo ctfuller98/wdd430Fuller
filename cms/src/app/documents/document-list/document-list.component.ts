@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Document } from '../document.model';
+import { DocumentService } from '../document.service';
 
 @Component({
   selector: 'app-document-list',
@@ -7,20 +8,14 @@ import { Document } from '../document.model';
   styleUrls: ['./document-list.component.css']
 })
 export class DocumentListComponent implements OnInit {
-  @Output()  selectedDocumentEvent = new EventEmitter<Document>();
-  documents:Document[] = [
-    new Document(1, "Test File 1", "First Test File", "url.org", null),
-    new Document(2, "Test File 2", "Second Test File", "url.org", null),
-    new Document(3, "Test File 3", "Third Test File", "url.org", null),
-    new Document(4, "Test File 4", "Fourth Test File", "url.org", null),
-    new Document(5, "Test File 5", "Fifth Test File", "url.org", null)
-  ];
-  constructor() { }
+  documents:Document[] = [];
+  constructor(private documentService: DocumentService) { }
 
   ngOnInit(): void {
+    this.documents = this.documentService.getDocuments();
   }
   onSelectedDocument(document:Document){
-    this.selectedDocumentEvent.emit(document)
+    this.documentService.documentSelectedEvent.emit(document)
   }
 
 }
