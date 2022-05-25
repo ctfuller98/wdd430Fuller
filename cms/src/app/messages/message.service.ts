@@ -18,7 +18,6 @@ export class MessageService {
   addMessage(message: Message) {
     this.messages.push(message);
     this.messageSelectedEvent.emit(message);
-    console.log(this.messages)
 
   }
 }

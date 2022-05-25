@@ -23,15 +23,6 @@ contactSelectedEvent = new EventEmitter<Contact>();
       
     }
     return null;
-    
-    /* this.contacts.forEach(contact => {
-       if (contact.id == id) {
-        return contact;
-       }
-       else{
-         return null;
-       }
-     }); */
    
    } 
 }
