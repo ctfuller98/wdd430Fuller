@@ -13,7 +13,7 @@ export class DocumentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.documents = this.documentService.getDocuments();
-    this.documentService.documentChangedEvent
+    this.documentService.documentListChangedEvent
     .subscribe(
       (document: Document[]) => {
         this.documents = document;

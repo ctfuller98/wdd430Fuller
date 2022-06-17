@@ -1,0 +1,62 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { EventEmitter, Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Message } from './message.model';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MessageService {
+  messages: Message[] = [];
+  maxId: number;
+  currentId: number;
+  maxMessageId: number;
+  MessageListChangedEvent = new Subject<Message[]>();
+  messageSelectedEvent = new EventEmitter<Message>();
+  constructor(private httpClient: HttpClient) {
+    this.getMessages();
+   }
+   getMessages(): Message[]{
+    this.fetchMessages();
+    return
+  }
+  getMaxId(): number {
+    this.maxId = 0;
+    this.messages.forEach(document => {
+      this.currentId = parseFloat(document.id)
+      if (this.currentId > this.maxId){
+        this.maxId = this.currentId;
+      }
+    });
+    return this.maxId;
+  }
+  addMessage(message: Message) {
+    this.messages.push(message);
+    this.messageSelectedEvent.emit(message);
+  }
+  private fetchMessages(){
+    console.log("made it to fetch")
+    this.httpClient.get('https://wdd430cms-e579c-default-rtdb.firebaseio.com/messages.json')
+    .subscribe (
+      (messages:Message[]) => {
+        this.messages = messages
+        this.maxMessageId = this.getMaxId()
+      },
+      (error:any) => {
+        console.log(error)
+        }
+      )
+    }
+storeDocuments() {
+      const messageList = JSON.stringify(this.messages);
+      this.httpClient.put('https://wdd430cms-e579c-default-rtdb.firebaseio.com/messages.json', messageList,
+      {
+        headers: new HttpHeaders({"Content-Type" : "application/json"})
+      })
+      .subscribe(response=>{
+        let messageListClone = this.messages.slice()
+        this.MessageListChangedEvent.next(messageListClone)
+      })
+    }
+}
