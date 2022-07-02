@@ -13,7 +13,6 @@ export class MessageService {
   currentId: number;
   maxMessageId: number;
   constructor(private httpClient: HttpClient) {
-    this.messages = MOCKMESSAGES;
    }
    getMessages(): Message[]{
     this.fetchMessages();
@@ -35,10 +34,11 @@ export class MessageService {
     return this.maxId
 }
   private fetchMessages(){
-    this.httpClient.get('https://wdd430cms-e579c-default-rtdb.firebaseio.com/documents.json')
+    this.httpClient.get('http://localhost:3000/messages/')
     .subscribe (
       (messages:Message[]) => {
         this.messages = messages
+        console.log(messages)
         this.maxMessageId = this.getMaxId()
         let list = this.messages.sort();
       },
